@@ -13,7 +13,7 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 
 // ✅ Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/videoeditor', {
+mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
@@ -46,6 +46,7 @@ app.post('/upload', upload.single('video'), (req, res) => {
   const fileUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
   return res.json({ url: fileUrl, filename: req.file.filename });
 });
+
 
 // ✅ Export Clips Route
 app.post("/export", async (req, res) => {
@@ -93,5 +94,5 @@ app.post("/export", async (req, res) => {
 
 // ✅ Start server
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(` Server running on ${PORT}`);
 });
